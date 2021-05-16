@@ -21,14 +21,13 @@ impl DiskManager {
         })
     }
     // ファイルパスを指定して開く
-    pub fn open(data_file_path: impl AsRef<Path>)
-        -> io::Result<Self>{
-            let heap_file = OpenOptions::new()
-                .read(true)
-                .write(true)
-                .create(true)
-                .open(heap_file_path)?;
-            self::new(heap_file)
+    pub fn open(data_file_path: impl AsRef<Path>)-> io::Result<Self>{
+        let heap_file = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .open(heap_file_path)?;
+        self::new(heap_file)
     }
     // 新しいページIDを採番する
     pub fn allocate_page(&mut self)-> PageId{
@@ -42,14 +41,13 @@ impl DiskManager {
         data: &[u8]) -> io::Result<()>{
             // ...
     }
-    pub fn write_page_data(&mut self,
-        page_id: PageId, data: &[u8]) -> io::Result<()>{
-            // オフセットを計算
-            let offset = PAGE_SIZE as u64 * page_id.to_u64();
-            // ページ先頭へシーク
-            self.heap_file.seek(SeekFrom::Stract(offset))?;
-            // データを読み出す
-            self.heap_file.read_exact(data)
-        }
-    // ...
+    pub fn write_page_data(&mut self, page_id: PageId, data: &[u8]) -> io::Result<()>{
+        // オフセットを計算
+        let offset = PAGE_SIZE as u64 * page_id.to_u64();
+        // ページ先頭へシーク
+        self.heap_file.seek(SeekFrom::Stract(offset))?;
+        // データを読み出す
+        self.heap_file.read_exact(data)
+    }
+
 }
